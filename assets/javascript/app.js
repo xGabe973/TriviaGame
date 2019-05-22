@@ -5,11 +5,9 @@ $(document).ready(function() {
     var selectedAnswer;
     var clock;
     var questionCounter = 0;
-    var score = {
-        right: 0,
-        wrong: 0,
-        unasnwered: 0
-    }
+    var right = 0;
+    var wrong = 0;
+    var unanswered = 0;
     var questions = [
         "Who gave Goku the Flying Nimbus?",
         "Who is Kakarot's brother?",
@@ -54,7 +52,7 @@ $(document).ready(function() {
 
     openingPage();
 
-    $(".mainArea").on("click", ".start-button", function (event) {
+    $(".mainArea").on("click", function (event) {
         event.preventDefault();
         $(".jumbotron").hide();
         generateQuestion();
@@ -62,13 +60,15 @@ $(document).ready(function() {
     })
 
     $("body").on("click", ".answer", function (event) {
-        //I need a forloop here
-        selectedAnswer = $(this).text();
-        selectedAnswer == answers[questionCounter]
-        clearInterval(clock);
-        generateWin();
+        var selectedAnswer = $(this).text();
+        for( i = 0; i < answers.length; i++)
+        if(selectedAnswer == answers[questionCounter]) {
+            clearInterval(clock);
+            generateWin();
+        } else {
         clearInterval(clock);
         generateLoss();
+        }
     })
 
     $("body").on("click", ".reset-button", function (event) {
@@ -80,35 +80,33 @@ $(document).ready(function() {
         $(".mainArea").html(gameHTML);
     }
     function timeoutLoss() {
-        score.unanswered++;
-        gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Wrong! The correct answer is: " + answers[questionCounter] + "</p>";
+        unanswered++;
+        gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Time's up! The correct answer was " + answers[questionCounter] + "</p>";
         $(".mainArea").html(gameHTML);
         setTimeout(wait, 3000)
     }
     function generateWin() {
-        score.right++;
+        right++;
         gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Wrong! The correct answer is: " + answers[questionCounter] + "</p>";
         $(".mainArea").html(gameHTML);
         setTimeout(wait, 3000)
     }
     function generateLoss() {
-        score.wrong++;
+        wrong++;
         gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Wrong! The correct answer is: " + answers[questionCounter] + "</p>";
         $(".mainArea").html(gameHTML);
         setTimeout(wait, 3000);
     }
     function wait() {
-        //I need another Forloop here
-        
-        questionCounter < 9
-        questionCounter++ ,
-            generateQuestion(),
+            questionCounter++;
+            generateQuestion();
             counter = 20;
-        timer();
-        finalScreen()
-    }
+            timer();
+            finalScreen()
+        }
+    
     function finalScreen() {
-        gameHTML = "<p>Congrats! You scored" + score.right + "right. You answered" + score.wrong + "incorrectly, and you left" + score.unasnwered + "unanswered</p>"
+        gameHTML = "<p>Congrats! You scored " + score.right + " right. You answered " + score.wrong + " incorrectly, and you left " + score.unasnwered + " unanswered</p>"
         $(".mainArea").html(gameHTML)
     }
 
