@@ -48,7 +48,7 @@ $(document).ready(function() {
     ]
 
     function openingPage() {
-        openScreen = "<p class='text-center main-button-container'><a class='btn btn-warning btn-md btn-block start-button' href='#' role='button'>Start Quiz</a></p>";
+        openScreen = "<div class='text-center main-button-container'><a class='btn btn-warning btn-md btn-block start-button' href='#' role='button'>Start Quiz</a></div>";
         $("#mainArea").append(openScreen);
     }
 
