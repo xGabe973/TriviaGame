@@ -62,6 +62,7 @@ $(document).ready(function() {
     })
 
     $("body").on("click", ".answer", function (event) {
+        //I need a forloop here
         selectedAnswer = $(this).text();
         selectedAnswer == answers[questionCounter]
         clearInterval(clock);
@@ -97,9 +98,11 @@ $(document).ready(function() {
         setTimeout(wait, 3000);
     }
     function wait() {
+        //I need another Forloop here
+        
         questionCounter < 9
         questionCounter++ ,
-            generateQuestions(),
+            generateQuestion(),
             counter = 20;
         timer();
         finalScreen()
@@ -115,7 +118,7 @@ $(document).ready(function() {
         score.unanswered = 0;
         questionCounter = 0;
         counter = 20;
-        generateQuestions();
+        generateQuestion();
         timer();
     }
 
